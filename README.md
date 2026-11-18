@@ -6,9 +6,10 @@ KELOMPOK-3
 2. Arief Hafid Zasella G1A025052
 3. Rikza Zalfanara G1A025058
 4. Fitria Wulandini G1A025084
-5. Vikri Abdullah Razzak G1A025092
-6. Ardanu Pahsa Daniswara G1A025106
-7. Bonardo Bastian Sihaloho G1A025118
+5. Muhamad Zaky Ihsan G1A025074
+6. Vikri Abdullah Razzak G1A025092
+7. Ardanu Pahsa Daniswara G1A025106
+8. Bonardo Bastian Sihaloho G1A025118
 ## 1. Deskripsi Proyek
 
 Proyek ini merupakan implementasi kecerdasan buatan (Machine Learning) berbasis Python yang bertujuan untuk memprediksi tingkat kelarutan senyawa kimia dalam air (dalam satuan LogS) berdasarkan karakteristik parameter fisikokimia molekulnya[cite: 1]. Pemodelan dilakukan dengan memanfaatkan algoritma **Random Forest Regressor**, yang digunakan untuk mempelajari pola hubungan antarparameter kimia dan menghasilkan estimasi nilai kelarutan[cite: 1]. Proyek ini menggunakan dataset terkurasi `curated-solubility-dataset.csv` dengan tujuh fitur parameter molekul utama sebagai variabel input[cite: 1]. Data tersebut dibagi menjadi data latih dan data uji sebelum diberikan kepada model untuk proses pelatihan[cite: 1]. Hasil akhir berupa skor evaluasi performa model ($R^2$ Score dan RMSE), grafik visualisasi analisis fitur serta perbandingan hasil tebakan AI, dan program simulasi interaktif untuk memprediksi kelarutan senyawa baru[cite: 1].
@@ -86,5 +87,40 @@ Menjalankan sel kedua yang berfungsi sebagai antarmuka simulasi interaktif berba
 
 ### Part 8 – Solubility Classification Output
 Menerjemahkan angka hasil prediksi `LogS` ke dalam kategori tingkat kelarutan yang mudah dipahami menggunakan percabangan logika (`if-elif-else`), yakni **Sangat Mudah Larut dalam Air** (`LogS > -2`), **Cukup Larut dalam Air** (`-4 < LogS <= -2`), atau **Sukar / Tidak Larut dalam Air** (`LogS <= -4`), kemudian menampilkan hasil akhirnya ke pengguna.
-```[cite: 1]
 
+## 8. Metode dan Teknik yang Digunakan
+
+Beberapa metode utama yang diterapkan dalam proyek ini adalah: **Feature Selection** Digunakan untuk mengekstrak tujuh parameter fisikokimia molekul yang paling relevan (`MolWt`, `MolLogP`, `MolMR`, `HeavyAtomCount`, `NumHAcceptors`, `NumHDonors`, dan `NumRotatableBonds`) sebagai variabel prediktor. **Train-Test Split** Membagi dataset secara acak menggunakan parameter `test_size=0.2` dan `random_state=42` untuk memisahkan data latih (80%) dan data uji (20%) guna menjaga objektivitas pengujian. **Ensemble Learning (Random Forest)** Membangun 100 pohon keputusan (`n_estimators=100`) secara paralel dan menggabungkan rata-rata hasil prediksinya untuk menghasilkan estimasi nilai numerik `LogS` yang stabil serta mencegah *overfitting*. **Feature Importance Analysis** Mengekstrak bobot kontribusi dari setiap fitur molekul untuk mengidentifikasi parameter kimia yang paling dominan dalam menentukan kelarutan. **Threshold-Based Classification** Mengonversi hasil prediksi regresi numerik `LogS` ke dalam tiga kategori kelarutan berbasis ambang batas nilai (-2 dan -4) pada program simulasi interaktif.
+
+## 9. Output yang Dihasilkan
+
+Program menghasilkan beberapa output utama sebagai berikut: **a. Skor Evaluasi Teks** Berupa ringkasan performa model pada konsol yang menampilkan nilai koefisien determinasi ($R^2$ Score = 0.75) dan Root Mean Squared Error (RMSE = 1.17). **b. Visualisasi Analisis Model** Menampilkan figur berisi dua grafik berdampingan, yaitu:
+
+1. Feature Importance Bar Chart (grafik batang horizontal yang mengurutkan pengaruh ketujuh parameter fisikokimia molekul).
+2. Actual vs Predicted Scatter Plot (grafik sebar yang membandingkan nilai kelarutan aktual dengan hasil prediksi AI beserta garis diagonal acuan ideal).
+
+**c. Hasil Prediksi Simulasi Interaktif** Menampilkan estimasi nilai `LogS` senyawa baru beserta label kategori kelarutannya (*Sangat Mudah Larut dalam Air*, *Cukup Larut dalam Air*, atau *Sukar / Tidak Larut dalam Air*) berdasarkan tujuh parameter molekul yang diinputkan pengguna secara langsung.
+
+## 10. Evaluasi Model
+
+Evaluasi dilakukan untuk mengetahui tingkat akurasi dan presisi model regresi dalam memprediksi nilai kelarutan senyawa kimia (`LogS`). Metrik evaluasi yang digunakan meliputi: **R² Score (Coefficient of Determination)** Mengukur seberapa besar proporsi variansi dari nilai kelarutan aktual yang dapat dijelaskan oleh model berdasarkan tujuh fitur molekul, di mana proyek ini mencapai skor **0.75** (75%). **RMSE (Root Mean Squared Error)** Mengukur rata-rata tingkat kesalahan prediksi model dalam satuan yang sama dengan target (`LogS`), dengan hasil sebesar **1.17** yang menunjukkan penyimpangan prediksi yang relatif rendah pada rentang skala kelarutan senyawa. Evaluasi utama dilakukan menggunakan *testing set* (20% dari total dataset) yang belum pernah dilihat oleh model selama proses pelatihan.
+
+## 11. Struktur File Proyek
+
+Seluruh file proyek dan dataset dikelola dalam satu direktori kerja utama (atau Google Drive / Google Colab). File yang terdapat di dalam repositori meliputi:
+
+* `Tugas_AI_Prediksi_Kelarutan.ipynb`: file notebook utama yang berisi seluruh kode pemodelan, evaluasi, visualisasi grafik analisis, serta program simulasi prediksi interaktif yang dapat dijalankan kembali melalui Jupyter Notebook, VS Code, atau Google Colab.
+* `curated-solubility-dataset.csv`: file dataset utama berisi data senyawa kimia dan tujuh parameter fisikokimia molekul beserta nilai kelarutan (`LogS`) yang digunakan untuk melatih dan menguji model.
+* `README.md`: dokumentasi lengkap mengenai deskripsi proyek, metodologi, tahapan implementasi, serta hasil evaluasi eksperimen.
+
+## 12. Kesimpulan
+
+Proyek ini menunjukkan penerapan algoritma *Machine Learning* dalam bidang kimia komputasi, khususnya untuk memprediksi tingkat kelarutan senyawa kimia di dalam air (`LogS`) berdasarkan karakteristik parameter fisikokimia molekulnya. Melalui kombinasi seleksi tujuh fitur molekul utama dan algoritma **Random Forest Regressor** (`n_estimators=100`), model mampu menghasilkan estimasi kelarutan dengan performa yang baik ($R^2$ Score = **0.75** dan RMSE = **1.17**) serta mengidentifikasi parameter dominan yang memengaruhi kelarutan. Eksperimen ini memberikan gambaran mengenai pemanfaatan kecerdasan buatan untuk mempercepat proses skrining sifat fisikokimia senyawa secara komputasional. Namun, hasil prediksi dari proyek ini ditujukan untuk keperluan pembelajaran, simulasi, dan penelitian awal, bukan sebagai pengganti penuh pengujian laboratorium eksperimental dalam formulasi kimia atau farmasi secara langsung.
+
+## 13. Referensi dan Sumber
+
+1. Curated Solubility Dataset. Kaggle. https://www.kaggle.com/datasets/sorkun/curated-solubility-dataset
+2. Sorkun, M. C., Khetan, A., & Er, S. (2019). *AqSolDB, a curated reference set of aqueous solubility and 2D descriptors for a diverse set of compounds*. Scientific Data, 6(1), 143. https://doi.org/10.1038/s41597-019-0151-1
+3. Scikit-learn Documentation (RandomForestRegressor). https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html
+4. Pandas Documentation. https://pandas.pydata.org/docs/
+5. Matplotlib & Seaborn Documentation. https://matplotlib.org/stable/
