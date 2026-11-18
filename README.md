@@ -88,19 +88,3 @@ Menjalankan sel kedua yang berfungsi sebagai antarmuka simulasi interaktif berba
 Menerjemahkan angka hasil prediksi `LogS` ke dalam kategori tingkat kelarutan yang mudah dipahami menggunakan percabangan logika (`if-elif-else`), yakni **Sangat Mudah Larut dalam Air** (`LogS > -2`), **Cukup Larut dalam Air** (`-4 < LogS <= -2`), atau **Sukar / Tidak Larut dalam Air** (`LogS <= -4`), kemudian menampilkan hasil akhirnya ke pengguna.
 ```[cite: 1]
 
-## 8. Metode dan Teknik yang Digunakan
-
-Beberapa metode utama yang diterapkan dalam proyek ini adalah: **Feature Selection** Digunakan untuk mengekstrak tujuh parameter fisikokimia molekul yang paling relevan (`MolWt`, `MolLogP`, `MolMR`, `HeavyAtomCount`, `NumHAcceptors`, `NumHDonors`, dan `NumRotatableBonds`) sebagai variabel prediktor. **Train-Test Split** Membagi dataset secara acak menggunakan parameter `test_size=0.2` dan `random_state=42` untuk memisahkan data latih (80%) dan data uji (20%) guna menjaga objektivitas pengujian. **Ensemble Learning (Random Forest)** Membangun 100 pohon keputusan (`n_estimators=100`) secara paralel dan menggabungkan rata-rata hasil prediksinya untuk menghasilkan estimasi nilai numerik `LogS` yang stabil serta mencegah *overfitting*. **Feature Importance Analysis** Mengekstrak bobot kontribusi dari setiap fitur molekul untuk mengidentifikasi parameter kimia yang paling dominan dalam menentukan kelarutan. **Threshold-Based Classification** Mengonversi hasil prediksi regresi numerik `LogS` ke dalam tiga kategori kelarutan berbasis ambang batas nilai (-2 dan -4) pada program simulasi interaktif.
-
-## 9. Output yang Dihasilkan
-
-Program menghasilkan beberapa output utama sebagai berikut: **a. Skor Evaluasi Teks** Berupa ringkasan performa model pada konsol yang menampilkan nilai koefisien determinasi ($R^2$ Score = 0.75) dan Root Mean Squared Error (RMSE = 1.17). **b. Visualisasi Analisis Model** Menampilkan figur berisi dua grafik berdampingan, yaitu:
-
-1. Feature Importance Bar Chart (grafik batang horizontal yang mengurutkan pengaruh ketujuh parameter fisikokimia molekul).
-2. Actual vs Predicted Scatter Plot (grafik sebar yang membandingkan nilai kelarutan aktual dengan hasil prediksi AI beserta garis diagonal acuan ideal).
-
-**c. Hasil Prediksi Simulasi Interaktif** Menampilkan estimasi nilai `LogS` senyawa baru beserta label kategori kelarutannya (*Sangat Mudah Larut dalam Air*, *Cukup Larut dalam Air*, atau *Sukar / Tidak Larut dalam Air*) berdasarkan tujuh parameter molekul yang diinputkan pengguna secara langsung.
-
-## 10. Evaluasi Model
-
-Evaluasi dilakukan untuk mengetahui tingkat akurasi dan presisi model regresi dalam memprediksi nilai kelarutan senyawa kimia (`LogS`). Metrik evaluasi yang digunakan meliputi: **R² Score (Coefficient of Determination)** Mengukur seberapa besar proporsi variansi dari nilai kelarutan aktual yang dapat dijelaskan oleh model berdasarkan tujuh fitur molekul, di mana proyek ini mencapai skor **0.75** (75%). **RMSE (Root Mean Squared Error)** Mengukur rata-rata tingkat kesalahan prediksi model dalam satuan yang sama dengan target (`LogS`), dengan hasil sebesar **1.17** yang menunjukkan penyimpangan prediksi yang relatif rendah pada rentang skala kelarutan senyawa. Evaluasi utama dilakukan menggunakan *testing set* (20% dari total dataset) yang belum pernah dilihat oleh model selama proses pelatihan.
