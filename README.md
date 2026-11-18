@@ -1,7 +1,7 @@
 # TUGAS ORITEK Computational chemistry: Predict aqueous solubility
 
 KELOMPOK-3
-list npm:
+
 1. Arief Efendi G1025042
 2. Arief Hafid Zasella G1A025052
 3. Rikza Zalfanara G1A025058
